@@ -5,6 +5,8 @@ export async function up(knex:Knex){
         table.increments('id').primary();
         table.string('name').notNullable();
         table.string('state').notNullable();
+        table.string('start').notNullable();
+        table.string('end').notNullable();
 
         table.integer('user_id')
         .notNullable()
