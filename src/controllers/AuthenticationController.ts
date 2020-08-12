@@ -1,10 +1,9 @@
 import express, { Request, Response } from 'express';
-import { config } from 'dotenv';
 
 import db from '../database/connection';
-import Autentication from '../utils/Authentication';
+import Authentication from '../utils/Authentication';
 
-const authentication = new Autentication();
+const authentication = new Authentication();
 
 export default new class AuthenticationController{
     async create(req: Request, res: Response){
@@ -14,7 +13,7 @@ export default new class AuthenticationController{
             await db('users').insert({
                 name,
                 email,
-                password: authentication.hashPassword(password)
+                password: await authentication.hashPassword(password)
             })
             return res.status(200).json({message:"user created successfully!"});
         }
@@ -27,10 +26,12 @@ export default new class AuthenticationController{
 
         if (!user) return res.status(400).json({message:"Email not found"});
 
-        if (!authentication.comparePassword(password,user.password)) return res.status(400)
+        if (!await authentication.comparePassword(user.password,password)) return res.status(400)
         .json({message:"Password does not match!"});
 
-        // you'r logged in
+        const token = await authentication.createToken(user.id);
+        return res.status(200).json({'authorization':token});
 
     }
+
 }
