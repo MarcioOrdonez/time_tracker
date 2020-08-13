@@ -5,19 +5,14 @@ export async function up(knex:Knex){
         table.increments('id').primary();
         table.string('name').notNullable();
         table.string('state').notNullable();
-        table.string('start').notNullable();
-        table.string('end').notNullable();
+        table.string('start');
+        table.string('stop');
+        table.string('total_time');
 
-        table.integer('user_id')
+        table.integer('owner')
         .notNullable()
         .references('id')
         .inTable('users')
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE');
-
-        table.integer('group_id')
-        .references('id')
-        .inTable('groups')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
     });

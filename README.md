@@ -16,11 +16,12 @@ docker start <container-name>
 
 
 database structure
-Users = name, email, password, [0,n groups], [0,n tasks]
+Users = name, email, password, [0,n tasks]
 
-groups = name ,[1,n Users],[0,n tasks]
 
-tasks = state, [1 Users], start, end
+task = owner, state, start, stop, total_time
+
+///////////////////////////////////////////////////////
 
 
 
