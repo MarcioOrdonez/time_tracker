@@ -20,6 +20,7 @@ Users = name, email, password, [0,n tasks]
 
 
 task = owner, state, start, stop, total_time
+states = new, active, closed, problem
 
 ///////////////////////////////////////////////////////
 

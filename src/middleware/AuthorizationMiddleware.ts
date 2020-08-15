@@ -3,7 +3,7 @@ import jwt,{DecodeOptions} from 'jsonwebtoken';
 import { config } from 'dotenv';
 
 
-export default class AuthorizationMiddeware{
+export default new class AuthorizationMiddeware{
     async isAuthenticated(req: Request, res: Response, next: NextFunction){
         const secret = process.env.JWT_HASH || 'A very secret key';
         const token = req.headers['authorization'];
