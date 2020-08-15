@@ -11,7 +11,7 @@ export default new class AuthorizationMiddeware{
         // FIX THIS !
         jwt.verify(token,secret, (err,decode:any)=>{
             if (err || !decode) return res.status(500).json({message:"Invalid token"});
-            req.body.id = decode.id;
+            req.body.user_id = decode.id;
             next();
         });
     }
