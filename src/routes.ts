@@ -16,5 +16,6 @@ routes.post('/login',authenticationController.logIn);
 
 routes.post('/task',AuthorizationMiddleware.isAuthenticated,TaskController.create);
 routes.get('/task',AuthorizationMiddleware.isAuthenticated,TaskController.index);
+routes.put('/task',AuthorizationMiddleware.isAuthenticated,TaskController.updateState);
 
 export default routes;

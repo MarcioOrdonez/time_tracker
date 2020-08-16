@@ -1,6 +1,8 @@
 import express, { Request, Response } from 'express'
+import StateChanger from '../utils/StateChanger';
 
 import db from '../database/connection';
+const stateChanger = new StateChanger();
 
 export default new class TaskController{
     async create(req: Request, res: Response){
@@ -23,8 +25,9 @@ export default new class TaskController{
 
     async updateState(req: Request, res: Response){
         const { id, state } = req.body;
-        const [task] = await db.where('id','=',id);
-        
+        const [task] = await db('tasks').where('id','=',id);
+        await db('tasks').where('id','=',id).update(stateChanger.init(state,task));
+        return res.status(200).json({message:"State updated"});
     }
 
     async delete(){
